@@ -1,5 +1,25 @@
 {% extends 'front/base.html.twig' %}
 
+{% block title %}La Centra-fake{% endblock %}
 {% block body %}
-<h1>Squelette d'un projet Symfony </h1>
+
+    <h1>Les annonces</h1>
+
+    <div class="container">
+            {% for listing in listings %}
+                    <a class="card-game" href="{{ path('app_listing_show', {'title': listing.title}) }}">
+                        <h2>{{ listing.title }}</h2>
+                        <p>{{ listing.description }}</p>
+                        <p>{{ listing.price }}€</p>
+                        <p>{{ listing.producedYear }}</p>
+                        <p>{{ listing.mileage }}</p>
+                        <p>{{ listing.price }}</p>
+                        <p>{{ listing.createdAt|date('d/m/Y')}}</p>
+                        <p>{{ listing.model.name}}</p>
+                    </a>
+            {% endfor %}
+    </div>
+
+    <a class="btn" href="{{ path('app_listing_add', {'title': listing.title}) }}">
+
 {% endblock %}
