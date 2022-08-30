@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Back;
 
 use App\Entity\Model;
 use App\Form\ModelType;
@@ -10,13 +10,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/model')]
+#[Route('/admin/model')]
 class ModelController extends AbstractController
 {
     #[Route('/', name: 'app_model_index', methods: ['GET'])]
     public function index(ModelRepository $modelRepository): Response
     {
-        return $this->render('model/index.html.twig', [
+        return $this->render('back/model/index.html.twig', [
             'models' => $modelRepository->findAll(),
         ]);
     }
@@ -43,7 +43,7 @@ class ModelController extends AbstractController
     #[Route('/{id}', name: 'app_model_show', methods: ['GET'])]
     public function show(Model $model): Response
     {
-        return $this->render('model/show.html.twig', [
+        return $this->render('back/model/show.html.twig', [
             'model' => $model,
         ]);
     }

@@ -1,0 +1,23 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}La Centra-fake{% endblock %}
+{% block body %}
+
+    <h1>Les annonces</h1>
+
+    <div class="container">
+            <div class="listingCard detail">
+                <h2>{{ listing.title }}</h2>
+                <p>{{ listing.description }}</p>
+                <p>{{ listing.price }}€</p>
+                <p>Anée de production</p>
+                <p>{{ listing.producedYear }}</p>
+                <p>{{ listing.mileage }}KM</p>
+                <p>{{ listing.createdAt|date('d/m/Y')}}</p>
+                <p>{{ listing.model.name}}</p>
+                {% if listing.image is defined %}
+                <img src="{{ listing.image}}" alt="{{ listing.title }}">
+                {% endif %}
+            </div>
+    </div>
+{% endblock %}

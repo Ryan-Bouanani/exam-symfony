@@ -4,22 +4,33 @@
 {% block body %}
 
     <h1>Les annonces</h1>
+        <a class="btn btn-primary my-3"
+               href="{{ path('app_brand_index') }}"
+        >
+            Marque
+        </a>
+        <a class="btn btn-primary my-3"
+            href="{{ path('app_model_index') }}"
+        >
+            Model
+        </a>
 
     <div class="container">
+        <div class="containerCardListing">
             {% for listing in listings %}
-                    <a class="card-game" href="{{ path('app_listing_show', {'title': listing.title}) }}">
+            <div class="listingCard">
+                    <a class="" href="{{ path('app_listing_show', {'title': listing.title}) }}">
                         <h2>{{ listing.title }}</h2>
-                        <p>{{ listing.description }}</p>
                         <p>{{ listing.price }}€</p>
-                        <p>{{ listing.producedYear }}</p>
-                        <p>{{ listing.mileage }}</p>
-                        <p>{{ listing.price }}</p>
-                        <p>{{ listing.createdAt|date('d/m/Y')}}</p>
-                        <p>{{ listing.model.name}}</p>
                     </a>
+            </div>
             {% endfor %}
+        </div>
+            <div class="">
+                {{ knp_pagination_render(listings) }}
+            </div>
     </div>
 
-    <a class="btn" href="{{ path('app_listing_add', {'title': listing.title}) }}">
+    <a class="btn" href="{{ path('app_listing_new') }}">Ajouter une annonce</a>
 
 {% endblock %}

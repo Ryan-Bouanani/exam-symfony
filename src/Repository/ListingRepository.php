@@ -40,7 +40,13 @@ class ListingRepository extends AbstractRepository
         }
     }
 
-
+    public function getQbAll(): QueryBuilder
+    {
+        $qb = parent::getQbAll();
+        return $qb->select('listing')
+            ->orderBy('listing.createdAt', 'DESC')
+        ;
+    }
 
 
 

@@ -3,7 +3,9 @@
 namespace App\Controller\Front;
 
 use App\Entity\Listing;
+use App\Form\ListingType;
 use App\Repository\ListingRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +15,10 @@ use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 
 class HomeController extends AbstractController
 {
+    public function __construct(
+        private EntityManagerInterface $em
+    ) { }
+
     #[Route('/', name: 'app_home')]
     public function index(
         ListingRepository $ListingRepository, 
@@ -26,7 +32,7 @@ class HomeController extends AbstractController
         $listings = $paginator->paginate(
             $qb,
             $request->query->getInt('page', 1),
-            10
+            12
         );
 
         return $this->render('front/home/index.html.twig', [
@@ -34,15 +40,34 @@ class HomeController extends AbstractController
         ]);
     }
 
+    #[Route('/new', name: 'app_listing_new')]
+    public function new(Request $request): Response
+    {
+        $form = $this->createForm(ListingType::class, new Listing());
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $this->em->persist($data);
+            $this->em->flush();
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('front/listing/new.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+    
     #[Route('/{title}', name: 'app_listing_show', methods: ['GET'])]
     public function show(
         Listing $listing,
-        Request $request,
-        PaginatorInterface $paginator,
         ): Response
     {
         return $this->render('front/listing/detail.html.twig', [
             'listing' => $listing,
         ]);
     }
+
+
+
 }

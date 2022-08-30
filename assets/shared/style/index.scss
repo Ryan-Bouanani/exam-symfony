@@ -1,3 +1,82 @@
 @import '~bootstrap';
 
 @import 'lib/fontawesome';
+
+.sortable,
+.asc,
+.desc {
+    display: block;
+    &:after {
+        content: '⬍';
+        padding-left: 0.4rem;
+        font-weight: 900;
+      }
+ &.asc {
+    &:after {
+      padding-left: 0.4rem;
+      content: '▴';
+      position: relative;
+      top: -5px;
+    }
+  }
+  &.desc {
+    &:after {
+      padding-left: 0.4rem;
+      content: '▾';
+      position: relative;
+      top: 5px;
+    }
+  }
+}
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+.current {
+  color: white;
+  text-decoration: none;
+  padding: 0.2rem 0.8rem;
+  background: linear-gradient(90deg, rgba(255,183,0,1) 0%, rgba(255,123,0,1) 100%);
+
+}
+
+.page, .first, .last, .previous, .next {
+  > a {
+    color:  rgb(255,183,0);
+    font-weight: 600;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+    text-decoration: none;
+    padding: 0.2rem 0.8rem;
+    background: white;
+    border: solid 1px  rgb(255,183,0);
+
+    &:hover {
+      background: rgb(255,183,0);
+      color: white;
+    }
+  }
+}
+}
+
+div.searchBar {
+display: flex;
+position: relative;
+
+button.searchSubmit {
+  border: none;
+  background: transparent;
+  color: black;
+  border-right: none;
+  position: absolute;
+  right: 0;
+  bottom: 50%;
+  transform: translate(-50%, 50%);
+}
+}
+
+img {
+  width: 100%;
+  background-size: cover;
+}

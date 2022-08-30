@@ -1,0 +1,55 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}Marques la Centra-fake{% endblock %}
+{% block body %}
+    <h1>Brand index</h1>
+
+     <div class="container-fluid">
+        {{ form_start(filters) }}
+        <table class="table table-dark table-hover table-striped mt-3">
+            <thead>
+            <tr>
+                <th>
+                    {{
+                    knp_pagination_sortable(
+                        brands,
+                        'Nom',
+                        'brand.name'
+                    )|raw
+                    }}
+                    {{ form_widget(filters.name) }}
+                </th>
+    
+                <th>
+                    <div>
+                        <button type="submit" class="filter-action">
+                            <i class="fas fa-filter"></i>
+                        </button>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for brand in brands %}
+                <tr>
+                    <td>{{ brand.name }}</td>
+                     <td><a href="{{ path('app_brand_edit', {'id': brand.id}) }}">
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {{ form_end(filters) }}
+
+        <div class="navigation d-flex justify-content-center mt-2">
+            {{ knp_pagination_render(brands) }}
+        </div>
+    </div>
+
+    <a href="{{ path('app_brand_new') }}">Create new</a>
+{% endblock %}
+
+
+
